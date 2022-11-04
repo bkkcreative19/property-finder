@@ -20,7 +20,7 @@ export const Login = () => {
       // maybe trigger a loading screen
       return;
     }
-    if (user) navigate("/");
+    if (user) navigate(-1);
   }, [user, loading]);
 
   async function handleSubmit(e) {

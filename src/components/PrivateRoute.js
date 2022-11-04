@@ -1,19 +1,12 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { Route, redirect, Navigate } from "react-router-dom";
 
-import { useAuth } from "../contexts/Auth";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../lib/firebase";
 
-export function PrivateRoute({ component: Component, ...rest }) {
-  const { user } = useAuth();
+export function PrivateRoute({ children }) {
+  const [user, loading, error] = useAuthState(auth);
 
-  return (
-    <Route
-      {...rest}
-      render={(props) => {
-        // Renders the page only if `user` is present (user is authenticated)
-        // Otherwise, redirect to the login page
-        return user ? <Component {...props} /> : <Redirect to="/login" />;
-      }}
-    ></Route>
-  );
+  return user ? children : <Navigate to="/login" />;
 }

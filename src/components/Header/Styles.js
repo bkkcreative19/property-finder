@@ -4,9 +4,16 @@ export const Container = styled.header`
   color: #000000;
   font-size: 1.6rem;
   padding: 1.5em 0;
+
+  // justify-content: space-evenly;
+`;
+
+export const Nav = styled.nav`
+  width: 70%;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
+  margin: 0 auto;
+  justify-content: space-between;
 `;
 
 export const List = styled.ul`

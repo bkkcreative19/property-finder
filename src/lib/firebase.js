@@ -16,6 +16,8 @@ import {
   collection,
   where,
   addDoc,
+  doc,
+  setDoc,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -98,6 +100,22 @@ const logout = () => {
   signOut(auth);
 };
 
+const addSavedListing = async (listing) => {
+  const res = await addDoc(collection(db, "listings"), listing);
+};
+
+const getSavedListings = async (user) => {
+  const q = query(collection(db, "listings"), where("user", "==", user.uid));
+  const docs = await getDocs(q);
+  // console.log(docs);
+  let data = [];
+  docs.forEach((doc) => {
+    data.push(doc.data());
+  });
+
+  return data;
+};
+
 export {
   auth,
   db,
@@ -106,4 +124,6 @@ export {
   registerWithEmailAndPassword,
   sendPasswordReset,
   logout,
+  addSavedListing,
+  getSavedListings,
 };

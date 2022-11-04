@@ -16,8 +16,8 @@ export const Search = ({ search, setSearch, fetchData }) => {
         color="#000000"
         onClick={() => {
           if (search) {
-            navigate("/listing");
-            fetchData();
+            navigate(`/listing?search=${search}`);
+            // fetchData();
           }
         }}
         size="3em"

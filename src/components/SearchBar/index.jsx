@@ -7,7 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../lib/firebase";
 
 export const Searchbar = ({ fetchData, search, setSearch }) => {
-  // const navigate = useNavigate;
+  const navigate = useNavigate();
   const [user, loading, error] = useAuthState(auth);
   return (
     <div
@@ -20,12 +20,13 @@ export const Searchbar = ({ fetchData, search, setSearch }) => {
       <Container>
         <Input
           placeholder="Searn an Address, City, or ZIP code"
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
 
         <IoIosSearch
           color="#000000"
-          onClick={() => search && fetchData()}
+          onClick={() => search && navigate(`/listing?search=${search}`)}
           size="2.5em"
           cursor="pointer"
         />
@@ -37,8 +38,8 @@ export const Searchbar = ({ fetchData, search, setSearch }) => {
             return;
           }
 
-          console.log("hi");
-          // navigate("/saved");
+          // console.log("hi");
+          navigate("/saved");
         }}
       >
         <AiOutlineHeart size="1.5em" /> Saved Listings
