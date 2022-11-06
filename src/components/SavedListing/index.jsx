@@ -2,7 +2,6 @@ import React from "react";
 import { Container, Content, Image } from "./Styles";
 
 export const SavedListing = ({ listing }) => {
-  console.log(listing);
   return (
     <Container>
       <Image src={listing.imgSrc} />

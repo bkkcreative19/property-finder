@@ -5,6 +5,12 @@ export const Container = styled.div`
   border: 1px solid #8080801a;
   border-bottom: 4px solid rgb(0 106 255);
   width: 390px;
+  transition: all 300ms ease-in-out 0s;
+
+  &:hover {
+    transform: scale(1.02) translate(0px, -1%);
+    box-shadow: 0 0 30px 0 rgb(0 0 0 / 10%);
+  }
 `;
 
 export const Image = styled.img`

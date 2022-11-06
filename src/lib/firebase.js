@@ -18,6 +18,7 @@ import {
   addDoc,
   doc,
   setDoc,
+  Timestamp,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -101,19 +102,30 @@ const logout = () => {
 };
 
 const addSavedListing = async (listing) => {
-  const res = await addDoc(collection(db, "listings"), listing);
+  console.log(listing);
+
+  let timeStamp = Timestamp.fromDate(new Date());
+
+  console.log(timeStamp);
+
+  const obj = { ...listing, createdAt: timeStamp };
+  const res = await addDoc(collection(db, "listings"), obj);
 };
 
 const getSavedListings = async (user) => {
   const q = query(collection(db, "listings"), where("user", "==", user.uid));
   const docs = await getDocs(q);
   // console.log(docs);
-  let data = [];
+  let arr = [];
   docs.forEach((doc) => {
-    data.push(doc.data());
+    let unix_timestamp = doc.data().createdAt.seconds;
+    const date = new Date(unix_timestamp * 1000);
+    // console.log(date);
+    let data = { ...doc.data(), createdAt: date };
+    arr.push(data);
   });
 
-  return data;
+  return arr;
 };
 
 export {
